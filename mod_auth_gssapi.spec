@@ -1,5 +1,5 @@
 Name:           mod_auth_gssapi
-Version:        1.0.2
+Version:        1.0.4
 Release:        1%{?dist}
 Summary:        A GSSAPI Authentication module for Apache
 
@@ -8,7 +8,7 @@ License:        MIT
 URL:            https://github.com/modauthgssapi/mod_auth_gssapi
 Source0:        https://github.com/modauthgssapi/%{name}/releases/download/v%{version}/%name-%{version}.tar.gz
 
-BuildRequires:  httpd-devel, krb5-devel, openssl-devel
+BuildRequires:  httpd-devel, krb5-devel, openssl-devel, autoconf, automake, libtool
 Requires:       httpd-mmn = %{_httpd_mmn}
 Requires:       krb5-libs >= 1.11.5
 
@@ -22,6 +22,7 @@ SPNEGO based HTTP Authentication protocol defined in RFC4559.
 
 %build
 export APXS=%{_httpd_apxs}
+autoreconf -fi
 %configure
 make %{?_smp_mflags}
 
@@ -43,7 +44,12 @@ install -m 644 10-auth_gssapi.conf %{buildroot}%{_httpd_modconfdir}
 %{_httpd_moddir}/mod_auth_gssapi.so
 
 %changelog
-* Thu Aug 27 2014 Simo Sorce <simo@redhat.com> 1.0.2-1
+* Sat Nov  8 2014 Simo Sorce <simo@redhat.com> 1.0.4-1
+- Patch release 1.0.4
+- logging initialization fixes
+- build fixes
+
+* Wed Aug 27 2014 Simo Sorce <simo@redhat.com> 1.0.2-1
 - Adds documntation to README
 - fixes bad bug that crippled configuration
 
