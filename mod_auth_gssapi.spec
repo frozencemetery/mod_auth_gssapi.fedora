@@ -1,6 +1,6 @@
 Name:           mod_auth_gssapi
 Version:        1.1.0
-Release:        2%{?dist}
+Release:        2.simotest%{?dist}
 Summary:        A GSSAPI Authentication module for Apache
 
 Group:          System Environment/Daemons
@@ -13,6 +13,7 @@ Requires:       httpd-mmn = %{_httpd_mmn}
 Requires:       krb5-libs >= 1.11.5
 
 Patch01: 0001-Escape-principal-name-to-remove-the-path-separator.patch
+Patch02: 0001-wip-15.patch
 
 %description
 The mod_auth_gssapi module is an authentication service that implements the
@@ -21,6 +22,7 @@ SPNEGO based HTTP Authentication protocol defined in RFC4559.
 %prep
 %setup -q
 %patch01 -p1
+%patch02 -p1
 
 %build
 export APXS=%{_httpd_apxs}
