@@ -1,6 +1,6 @@
 Name:           mod_auth_gssapi
 Version:        1.1.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A GSSAPI Authentication module for Apache
 
 Group:          System Environment/Daemons
@@ -13,6 +13,7 @@ Requires:       httpd-mmn = %{_httpd_mmn}
 Requires:       krb5-libs >= 1.11.5
 
 Patch01: 0001-Escape-principal-name-to-remove-the-path-separator.patch
+Patch02: 0001-Handle-authentication-on-subrequests.patch
 
 %description
 The mod_auth_gssapi module is an authentication service that implements the
@@ -46,6 +47,9 @@ install -m 644 10-auth_gssapi.conf %{buildroot}%{_httpd_modconfdir}
 %{_httpd_moddir}/mod_auth_gssapi.so
 
 %changelog
+* Thu Mar 31 2015 Simo Sorce <simo@redhat.com> 1.1.0-3
+- Fix some authentication issues
+
 * Thu Mar 26 2015 Simo Sorce <simo@redhat.com> 1.1.0-2
 - Fix saving delegated credentials for SPNs
 
