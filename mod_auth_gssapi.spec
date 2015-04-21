@@ -1,6 +1,6 @@
 Name:           mod_auth_gssapi
-Version:        1.1.0
-Release:        3%{?dist}
+Version:        1.2.0
+Release:        1%{?dist}
 Summary:        A GSSAPI Authentication module for Apache
 
 Group:          System Environment/Daemons
@@ -12,8 +12,6 @@ BuildRequires:  httpd-devel, krb5-devel, openssl-devel, autoconf, automake, libt
 Requires:       httpd-mmn = %{_httpd_mmn}
 Requires:       krb5-libs >= 1.11.5
 
-Patch01: 0001-Escape-principal-name-to-remove-the-path-separator.patch
-Patch02: 0001-Handle-authentication-on-subrequests.patch
 
 %description
 The mod_auth_gssapi module is an authentication service that implements the
@@ -21,8 +19,6 @@ SPNEGO based HTTP Authentication protocol defined in RFC4559.
 
 %prep
 %setup -q
-%patch01 -p1
-%patch02 -p1
 
 %build
 export APXS=%{_httpd_apxs}
@@ -48,6 +44,11 @@ install -m 644 10-auth_gssapi.conf %{buildroot}%{_httpd_modconfdir}
 %{_httpd_moddir}/mod_auth_gssapi.so
 
 %changelog
+* Tue Apr 21 2015 Simo Sorce <simo@redhat.com> 1.2.0-1
+- New minor release 1.2.0
+- Adds delegation support on Basic Auth
+- Response fix, send last auth token on successful auth
+
 * Thu Mar 31 2015 Simo Sorce <simo@redhat.com> 1.1.0-3
 - Fix some authentication issues
 
