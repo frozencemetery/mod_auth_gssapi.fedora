@@ -1,5 +1,5 @@
 Name:           mod_auth_gssapi
-Version:        1.2.0
+Version:        1.3.0
 Release:        1%{?dist}
 Summary:        A GSSAPI Authentication module for Apache
 
@@ -9,6 +9,7 @@ URL:            https://github.com/modauthgssapi/mod_auth_gssapi
 Source0:        https://github.com/modauthgssapi/%{name}/releases/download/v%{version}/%name-%{version}.tar.gz
 
 BuildRequires:  httpd-devel, krb5-devel, openssl-devel, autoconf, automake, libtool
+BuildRequires:  gssntlmssp-devel
 Requires:       httpd-mmn = %{_httpd_mmn}
 Requires:       krb5-libs >= 1.11.5
 
@@ -25,7 +26,6 @@ export APXS=%{_httpd_apxs}
 autoreconf -fi
 %configure
 make %{?_smp_mflags}
-
 
 %install
 mkdir -p %{buildroot}%{_httpd_moddir}
@@ -44,6 +44,9 @@ install -m 644 10-auth_gssapi.conf %{buildroot}%{_httpd_modconfdir}
 %{_httpd_moddir}/mod_auth_gssapi.so
 
 %changelog
+* Sat Jul  4 2015 Simo Sorce <simo@redhat.com> 1.3.0-1
+- US Independence Day Release
+
 * Tue Apr 21 2015 Simo Sorce <simo@redhat.com> 1.2.0-1
 - New minor release 1.2.0
 - Adds delegation support on Basic Auth
