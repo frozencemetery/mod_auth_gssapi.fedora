@@ -1,0 +1,62 @@
+From 4e7967e797e5c8912a67c0de8f172bb95b5172ff Mon Sep 17 00:00:00 2001
+From: Simo Sorce <simo@redhat.com>
+Date: Tue, 7 Jul 2015 13:23:57 -0400
+Subject: [PATCH] Fix checks on allowed mechs
+
+We need to check if a mech is allowed against the desired_mechs set.
+Otherwise in case the admin does not explicitly specify an allowed set
+then all mechs are allowed, including NTLM. This causes annoying issues
+with browsers like Firefox and Chrome/ium which end up popping up an
+authentication dialog if they see NTLM is supported and they have no
+Kerberos tickets around.
+Authentication will then simply fail because NTLM is not actually supported.
+By using desired_mechs we use a list of mechanism the machine actually
+has a chance to support in the default case.
+
+Signed-off-by: Simo Sorce <simo@redhat.com>
+---
+ src/mod_auth_gssapi.c | 12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
+
+diff --git a/src/mod_auth_gssapi.c b/src/mod_auth_gssapi.c
+index 6cb8d3a532370212f8fc2e708b066511575fbd7e..763b625cef106923afca753e4c3e192df24bb49e 100644
+--- a/src/mod_auth_gssapi.c
++++ b/src/mod_auth_gssapi.c
+@@ -292,12 +292,12 @@ static bool parse_auth_header(apr_pool_t *pool, const char **auth_header,
+     return true;
+ }
+ 
+-static bool is_mech_allowed(struct mag_config *cfg, gss_const_OID mech)
++static bool is_mech_allowed(gss_OID_set allowed_mechs, gss_const_OID mech)
+ {
+-    if (cfg->allowed_mechs == GSS_C_NO_OID_SET) return true;
++    if (allowed_mechs == GSS_C_NO_OID_SET) return true;
+ 
+-    for (int i = 0; i < cfg->allowed_mechs->count; i++) {
+-        if (gss_oid_equal(&cfg->allowed_mechs->elements[i], mech)) {
++    for (int i = 0; i < allowed_mechs->count; i++) {
++        if (gss_oid_equal(&allowed_mechs->elements[i], mech)) {
+             return true;
+         }
+     }
+@@ -785,7 +785,7 @@ static int mag_auth(request_rec *req)
+         break;
+ 
+     case AUTH_TYPE_RAW_NTLM:
+-        if (!is_mech_allowed(cfg, &gss_mech_ntlmssp)) {
++        if (!is_mech_allowed(desired_mechs, &gss_mech_ntlmssp)) {
+             ap_log_rerror(APLOG_MARK, APLOG_DEBUG, 0, req,
+                           "NTLM Authentication is not allowed!");
+             goto done;
+@@ -945,7 +945,7 @@ done:
+         }
+     } else if (ret == HTTP_UNAUTHORIZED) {
+         apr_table_add(req->err_headers_out, "WWW-Authenticate", "Negotiate");
+-        if (is_mech_allowed(cfg, &gss_mech_ntlmssp)) {
++        if (is_mech_allowed(desired_mechs, &gss_mech_ntlmssp)) {
+             apr_table_add(req->err_headers_out, "WWW-Authenticate", "NTLM");
+         }
+         if (cfg->use_basic_auth) {
+-- 
+2.4.2
+
