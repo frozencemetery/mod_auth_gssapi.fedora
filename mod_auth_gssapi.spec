@@ -1,6 +1,6 @@
 Name:           mod_auth_gssapi
-Version:        1.3.0
-Release:        2%{?dist}
+Version:        1.3.1
+Release:        1%{?dist}
 Summary:        A GSSAPI Authentication module for Apache
 
 Group:          System Environment/Daemons
@@ -13,15 +13,12 @@ BuildRequires:  gssntlmssp-devel
 Requires:       httpd-mmn = %{_httpd_mmn}
 Requires:       krb5-libs >= 1.11.5
 
-Patch01: 0001-Fix-checks-on-allowed-mechs.patch
-
 %description
 The mod_auth_gssapi module is an authentication service that implements the
 SPNEGO based HTTP Authentication protocol defined in RFC4559.
 
 %prep
 %setup -q
-%patch01 -p1
 
 %build
 export APXS=%{_httpd_apxs}
@@ -46,6 +43,9 @@ install -m 644 10-auth_gssapi.conf %{buildroot}%{_httpd_modconfdir}
 %{_httpd_moddir}/mod_auth_gssapi.so
 
 %changelog
+* Thu Sep  3 2015 Simo Sorce <simo@redhat.com> 1.3.1-1
+- Viking 2 landing (1976) release (1.3.1)
+
 * Tue Jul  7 2015 Simo Sorce <simo@redhat.com> 1.3.0-2
 - Fix annoying incorrect behavior with simple configuration where
   GssapiAllowedMech is not used.
