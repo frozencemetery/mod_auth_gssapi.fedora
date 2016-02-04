@@ -1,6 +1,6 @@
 Name:           mod_auth_gssapi
 Version:        1.3.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A GSSAPI Authentication module for Apache
 
 Group:          System Environment/Daemons
@@ -43,6 +43,9 @@ install -m 644 10-auth_gssapi.conf %{buildroot}%{_httpd_modconfdir}
 %{_httpd_moddir}/mod_auth_gssapi.so
 
 %changelog
+* Thu Feb 04 2016 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_24_Mass_Rebuild
+
 * Thu Sep  3 2015 Simo Sorce <simo@redhat.com> 1.3.1-1
 - Viking 2 landing (1976) release (1.3.1)
 
