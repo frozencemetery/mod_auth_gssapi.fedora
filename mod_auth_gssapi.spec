@@ -1,5 +1,5 @@
 Name:           mod_auth_gssapi
-Version:        1.3.2
+Version:        1.4.0
 Release:        1%{?dist}
 Summary:        A GSSAPI Authentication module for Apache
 
@@ -43,6 +43,9 @@ install -m 644 10-auth_gssapi.conf %{buildroot}%{_httpd_modconfdir}
 %{_httpd_moddir}/mod_auth_gssapi.so
 
 %changelog
+* Fri Jun 17 2016 Simo Sorce <simo@redhat.com> 1.4.0-1
+- Lunar Reconnaissance Orbiter (2009) release (1.4.0)
+
 * Mon Feb 22 2016 Simo Sorce <simo@redhat.com> 1.3.2-1
 - NEAR Shoemaker launch (1996) release (1.3.2)
 
