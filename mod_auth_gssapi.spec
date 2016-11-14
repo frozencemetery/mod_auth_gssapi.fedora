@@ -1,6 +1,6 @@
 Name:           mod_auth_gssapi
 Version:        1.4.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A GSSAPI Authentication module for Apache
 
 Group:          System Environment/Daemons
@@ -43,6 +43,9 @@ install -m 644 10-auth_gssapi.conf %{buildroot}%{_httpd_modconfdir}
 %{_httpd_moddir}/mod_auth_gssapi.so
 
 %changelog
+* Mon Nov 14 2016 Joe Orton <jorton@redhat.com> - 1.4.1-2
+- rebuild for new OpenSSL
+
 * Mon Aug 15 2016 Robbie Harwood <rharwood@redhat.com> 1.4.1-1
 - Mishka & Chizhik fly on a rocket release (1.4.1)
 - Fix bogus changelog date
