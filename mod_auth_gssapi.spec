@@ -1,5 +1,5 @@
 Name:           mod_auth_gssapi
-Version:        1.4.1
+Version:        1.5.0
 Release:        1%{?dist}
 Summary:        A GSSAPI Authentication module for Apache
 
@@ -43,6 +43,9 @@ install -m 644 10-auth_gssapi.conf %{buildroot}%{_httpd_modconfdir}
 %{_httpd_moddir}/mod_auth_gssapi.so
 
 %changelog
+* Mon Jan 16 2017 Simo Sorce <simo@redhat.com> - 1.5.0-1
+- Last listoff of Space Shuttle Columbia release (1.5.0)
+
 * Mon Aug 15 2016 Robbie Harwood <rharwood@redhat.com> 1.4.1-1
 - Mishka & Chizhik fly on a rocket release (1.4.1)
 - Fix bogus changelog date
