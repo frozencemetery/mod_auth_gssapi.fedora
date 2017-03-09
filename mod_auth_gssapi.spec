@@ -1,6 +1,6 @@
 Name:           mod_auth_gssapi
-Version:        1.5.0
-Release:        2%{?dist}
+Version:        1.5.1
+Release:        1%{?dist}
 Summary:        A GSSAPI Authentication module for Apache
 
 Group:          System Environment/Daemons
@@ -43,6 +43,9 @@ install -m 644 10-auth_gssapi.conf %{buildroot}%{_httpd_modconfdir}
 %{_httpd_moddir}/mod_auth_gssapi.so
 
 %changelog
+* Thu Mar  9 2017 Simo Sorce <simo@redhat.com> - 1.5.1-1
+- Korabl-Sputnik 4 launch (1.5.1)
+
 * Fri Feb 10 2017 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_26_Mass_Rebuild
 
