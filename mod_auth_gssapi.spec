@@ -1,6 +1,6 @@
 Name:           mod_auth_gssapi
 Version:        1.5.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        A GSSAPI Authentication module for Apache
 
 Group:          System Environment/Daemons
@@ -8,8 +8,11 @@ License:        MIT
 URL:            https://github.com/modauthgssapi/mod_auth_gssapi
 Source0:        https://github.com/modauthgssapi/%{name}/releases/download/v%{version}/%name-%{version}.tar.gz
 
+Patch0: Allow-admins-to-selectively-suppress-negotiation.patch
+
 BuildRequires:  httpd-devel, krb5-devel, openssl-devel, autoconf, automake, libtool
 BuildRequires:  gssntlmssp-devel
+BuildRequires:  git
 Requires:       httpd-mmn = %{_httpd_mmn}
 Requires:       krb5-libs >= 1.11.5
 
@@ -18,7 +21,7 @@ The mod_auth_gssapi module is an authentication service that implements the
 SPNEGO based HTTP Authentication protocol defined in RFC4559.
 
 %prep
-%setup -q
+%autosetup -S git
 
 %build
 export APXS=%{_httpd_apxs}
@@ -43,6 +46,10 @@ install -m 644 10-auth_gssapi.conf %{buildroot}%{_httpd_modconfdir}
 %{_httpd_moddir}/mod_auth_gssapi.so
 
 %changelog
+* Mon Oct 02 2017 Robbie Harwood <rharwood@redhat.com> - 1.5.1-4
+- Allow admins to selectively suppress negotiation
+- Migrate to autosetup
+
 * Thu Aug 03 2017 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Binutils_Mass_Rebuild
 
