@@ -1,6 +1,6 @@
 Name:           mod_auth_gssapi
 Version:        1.5.1
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        A GSSAPI Authentication module for Apache
 
 Group:          System Environment/Daemons
@@ -9,6 +9,8 @@ URL:            https://github.com/modauthgssapi/mod_auth_gssapi
 Source0:        https://github.com/modauthgssapi/%{name}/releases/download/v%{version}/%name-%{version}.tar.gz
 
 Patch0: Allow-admins-to-selectively-suppress-negotiation.patch
+Patch1: Fix-strtol-error-checking.patch
+Patch2: Handle-extra-large-NSS-entries.patch
 
 BuildRequires:  httpd-devel, krb5-devel, openssl-devel, autoconf, automake, libtool
 BuildRequires:  gssntlmssp-devel
@@ -46,6 +48,10 @@ install -m 644 10-auth_gssapi.conf %{buildroot}%{_httpd_modconfdir}
 %{_httpd_moddir}/mod_auth_gssapi.so
 
 %changelog
+* Tue Oct 03 2017 Robbie Harwood <rharwood@redhat.com> - 1.5.1-5
+- Handle extra large NSS entries
+- Resolves: #1498175
+
 * Mon Oct 02 2017 Robbie Harwood <rharwood@redhat.com> - 1.5.1-4
 - Allow admins to selectively suppress negotiation
 - Migrate to autosetup
