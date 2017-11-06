@@ -1,6 +1,6 @@
 Name:           mod_auth_gssapi
-Version:        1.5.1
-Release:        6%{?dist}
+Version:        1.6.0
+Release:        1%{?dist}
 Summary:        A GSSAPI Authentication module for Apache
 
 Group:          System Environment/Daemons
@@ -8,10 +8,6 @@ License:        MIT
 URL:            https://github.com/modauthgssapi/mod_auth_gssapi
 Source0:        https://github.com/modauthgssapi/%{name}/releases/download/v%{version}/%name-%{version}.tar.gz
 
-Patch0: Allow-admins-to-selectively-suppress-negotiation.patch
-Patch1: Fix-strtol-error-checking.patch
-Patch2: Handle-extra-large-NSS-entries.patch
-Patch3: Document-gssapi-no-negotiate.patch
 
 BuildRequires:  httpd-devel, krb5-devel, openssl-devel, autoconf, automake, libtool
 BuildRequires:  gssntlmssp-devel
@@ -49,6 +45,9 @@ install -m 644 10-auth_gssapi.conf %{buildroot}%{_httpd_modconfdir}
 %{_httpd_moddir}/mod_auth_gssapi.so
 
 %changelog
+* Mon Nov 06 2017 Robbie Harwood <rharwood@redhat.com> - 1.6.0-1
+- Release 1.6.0
+
 * Fri Oct 27 2017 Robbie Harwood <rharwood@redhat.com> - 1.5.1-6
 - Document gssapi-no-negotiate
 
