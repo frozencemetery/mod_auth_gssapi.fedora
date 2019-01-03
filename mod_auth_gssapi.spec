@@ -1,6 +1,6 @@
 Name:           mod_auth_gssapi
 Version:        1.6.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A GSSAPI Authentication module for Apache
 
 Group:          System Environment/Daemons
@@ -8,6 +8,8 @@ License:        MIT
 URL:            https://github.com/modauthgssapi/mod_auth_gssapi
 Source0:        https://github.com/modauthgssapi/%{name}/releases/download/v%{version}/%name-%{version}.tar.gz
 
+Patch0: In-tests-show-the-exception-on-failure.patch
+Patch1: Fix-tests-to-work-with-python3.patch
 
 BuildRequires:  httpd-devel, krb5-devel, openssl-devel, autoconf, automake, libtool
 BuildRequires:  gssntlmssp-devel
@@ -45,6 +47,9 @@ install -m 644 10-auth_gssapi.conf %{buildroot}%{_httpd_modconfdir}
 %{_httpd_moddir}/mod_auth_gssapi.so
 
 %changelog
+* Thu Jan 03 2019 Robbie Harwood <rharwood@redhat.com> - 1.6.1-3
+- Fix tests to work with python3
+
 * Fri Jul 13 2018 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_29_Mass_Rebuild
 
