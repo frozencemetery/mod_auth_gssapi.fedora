@@ -3,7 +3,6 @@ Version:        1.6.1
 Release:        3%{?dist}
 Summary:        A GSSAPI Authentication module for Apache
 
-Group:          System Environment/Daemons
 License:        MIT
 URL:            https://github.com/modauthgssapi/mod_auth_gssapi
 Source0:        https://github.com/modauthgssapi/%{name}/releases/download/v%{version}/%name-%{version}.tar.gz
