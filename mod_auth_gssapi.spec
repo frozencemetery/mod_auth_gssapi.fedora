@@ -1,6 +1,6 @@
 Name:           mod_auth_gssapi
 Version:        1.6.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        A GSSAPI Authentication module for Apache
 
 License:        MIT
@@ -46,6 +46,9 @@ install -m 644 10-auth_gssapi.conf %{buildroot}%{_httpd_modconfdir}
 %{_httpd_moddir}/mod_auth_gssapi.so
 
 %changelog
+* Fri Feb 01 2019 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.1-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_30_Mass_Rebuild
+
 * Thu Jan 03 2019 Robbie Harwood <rharwood@redhat.com> - 1.6.1-3
 - Fix tests to work with python3
 
