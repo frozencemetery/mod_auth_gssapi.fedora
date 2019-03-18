@@ -1,6 +1,6 @@
 Name:           mod_auth_gssapi
 Version:        1.6.1
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        A GSSAPI Authentication module for Apache
 
 License:        MIT
@@ -10,6 +10,7 @@ Source0:        https://github.com/modauthgssapi/%{name}/releases/download/v%{ve
 Patch0: In-tests-show-the-exception-on-failure.patch
 Patch1: Fix-tests-to-work-with-python3.patch
 Patch2: Fix-integer-sizes-used-with-ap_set_flag_slot.patch
+Patch3: tests-Test-suite-fixes-for-virtualenv-and-clang.patch
 
 BuildRequires:  httpd-devel, krb5-devel, openssl-devel, autoconf, automake, libtool
 BuildRequires:  gssntlmssp-devel
@@ -47,6 +48,9 @@ install -m 644 10-auth_gssapi.conf %{buildroot}%{_httpd_modconfdir}
 %{_httpd_moddir}/mod_auth_gssapi.so
 
 %changelog
+* Mon Mar 18 2019 Robbie Harwood <rharwood@redhat.com> - 1.6.1-6
+- Test suite fixes for virtualenv and clang
+
 * Tue Feb 19 2019 Robbie Harwood <rharwood@redhat.com> - 1.6.1-5
 - Fix integer sizes used with ap_set_flag_slot()
 - Resolves: #1678872
