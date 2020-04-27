@@ -1,19 +1,14 @@
 Name:           mod_auth_gssapi
-Version:        1.6.1
-Release:        8%{?dist}
+Version:        1.6.2
+Release:        1%{?dist}
 Summary:        A GSSAPI Authentication module for Apache
 
 License:        MIT
-URL:            https://github.com/modauthgssapi/mod_auth_gssapi
-Source0:        https://github.com/modauthgssapi/%{name}/releases/download/v%{version}/%name-%{version}.tar.gz
+URL:            https://github.com/gssapi/mod_auth_gssapi
+Source0:        https://github.com/gssapi/%{name}/releases/download/v%{version}/%name-%{version}.tar.gz
 
-Patch0: In-tests-show-the-exception-on-failure.patch
-Patch1: Fix-tests-to-work-with-python3.patch
-Patch2: Fix-integer-sizes-used-with-ap_set_flag_slot.patch
-Patch3: tests-Test-suite-fixes-for-virtualenv-and-clang.patch
-
-BuildRequires:  httpd-devel, krb5-devel, openssl-devel, autoconf, automake, libtool
-BuildRequires:  gssntlmssp-devel
+BuildRequires:  httpd-devel, krb5-devel, openssl-devel, gssntlmssp-devel
+BuildRequires:  autoconf, automake, libtool, bison, flex
 BuildRequires:  git
 Requires:       httpd-mmn = %{_httpd_mmn}
 Requires:       krb5-libs >= 1.11.5
@@ -48,6 +43,10 @@ install -m 644 10-auth_gssapi.conf %{buildroot}%{_httpd_modconfdir}
 %{_httpd_moddir}/mod_auth_gssapi.so
 
 %changelog
+* Mon Apr 27 2020 Robbie Harwood <rharwood@redhat.com> - 1.6.2-1
+- New upstream release (1.6.2)
+- Resolves: #1828142
+
 * Wed Jan 29 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.1-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
 
