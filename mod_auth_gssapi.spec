@@ -8,7 +8,7 @@ URL:            https://github.com/gssapi/mod_auth_gssapi
 Source0:        https://github.com/gssapi/%{name}/releases/download/v%{version}/%name-%{version}.tar.gz
 
 BuildRequires:  httpd-devel, krb5-devel, openssl-devel, gssntlmssp-devel
-BuildRequires:  autoconf, automake, libtool, bison, flex
+BuildRequires:  autoconf, automake, libtool, bison, flex, make
 BuildRequires:  git
 Requires:       httpd-mmn = %{_httpd_mmn}
 Requires:       krb5-libs >= 1.11.5
