@@ -1,17 +1,23 @@
 Name:           mod_auth_gssapi
 Version:        1.6.3
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A GSSAPI Authentication module for Apache
 
 License:        MIT
 URL:            https://github.com/gssapi/mod_auth_gssapi
 Source0:        https://github.com/gssapi/%{name}/releases/download/v%{version}/%name-%{version}.tar.gz
 
-BuildRequires:  httpd-devel, krb5-devel, openssl-devel, gssntlmssp-devel
+BuildRequires:  httpd-devel, krb5-devel, openssl-devel
 BuildRequires:  autoconf, automake, libtool, bison, flex, make
 BuildRequires:  git
 Requires:       httpd-mmn = %{_httpd_mmn}
 Requires:       krb5-libs >= 1.11.5
+
+# If you're reading this: NTLM is insecure.  Migrate off it.
+%if 0%{?rhel}
+%else
+BuildRequires: gssntlmssp-devel
+%endif
 
 %description
 The mod_auth_gssapi module is an authentication service that implements the
@@ -43,6 +49,9 @@ install -m 644 10-auth_gssapi.conf %{buildroot}%{_httpd_modconfdir}
 %{_httpd_moddir}/mod_auth_gssapi.so
 
 %changelog
+* Tue Mar 16 2021 Robbie Harwood <rharwood@redhat.com> - 1.6.3-3
+- Build dep adjustments; no Fedora code changes
+
 * Tue Jan 26 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
 
